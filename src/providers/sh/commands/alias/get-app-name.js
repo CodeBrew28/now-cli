@@ -13,10 +13,12 @@ async function getAppName(output: Output, localConfig?: string) {
     return config.name
   }
 
-  // Otherwise try to get it from the package
-  const pkg = await readPackage()
-  if (!(pkg instanceof NowError) && pkg) {
-    return pkg.name
+  // If it is a npm deployment, get it from the package
+  if (!(config instanceof NowError) && config.type === "npm") {
+    const pkg = await readPackage()
+    if (!(pkg instanceof NowError) && pkg) {
+      return pkg.name
+    }
   }
 
   // Finally fallback to directory
