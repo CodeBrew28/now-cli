@@ -20,7 +20,7 @@ async function getAppName(output: Output, localConfig?: string) {
       return pkg.name
     }
   }
-
+  
   // Finally fallback to directory
   return path.basename(path.resolve(process.cwd(), localConfig || ''))
 }
